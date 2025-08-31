@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --pattern-bg: repeating-linear-gradient(
+    -45deg,
+    /* angle */ #020618 0px,
+    /* dark background color */ #020618 6px,
+    /* space between lines */ #ffffff20 6px,
+    /* faint white line (semi-transparent) */ #ffffff20 7.5px /* line thickness */
+  );
+}
+body {
+  background: var(--pattern-bg);
+  background-color: black;
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+ /* color: rgba(0, 255, 255, 0.678) */
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Edge */
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.shine {
+  animation: shine 5s linear infinite;
+}
