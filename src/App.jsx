@@ -1,58 +1,37 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
-import CardList from "./components/ui/Card";
-import Modal from "./components/Modal";
 import Ring from "./components/ui/Ring";
 import Footer from "./components/ui/footer";
+import GithubProjects from "./components/GithubProjects";
+import Squares from "./components/reactBits/Squares";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
-
+  const [keyword, setKeyword] = useState("");
+  function handleKeyword(value) {
+    setKeyword(value);
+  }
   return (
     <>
-      <section className="  ml-1 mr-1 -z-4 lg:ml-10 lg:mr-10 min-h-screen  bg-slate-950/90 border-x border-gray-800 py-2 px-3 lg:pb-0  lg:pt-5 lg:px-5 flex flex-col  ">
+      <div className="fixed top-0 left-0  w-full h-full -z-10 overflow-hidden">
+        <Squares
+          speed={0.5}
+          squareSize={40}
+          direction="down" // up, down, left, right, diagonal
+          borderColor="#545456"
+          hoverFillColor="#222"
+        />
+      </div>
+      <section className="  min-h-screen  bg-zinc-950/90 border-x border-zinc-800 py-2 px-3 lg:pb-0  lg:pt-5 lg:px-5 flex flex-col  ">
         <main className="flex-1">
-          <Navbar onOpenModal={() => setIsModalOpen(true)} />
-          <Ring
-            content={
-              " A collection of recent web development projects Ranjan/Builds"
-            }
-          />
+          <Navbar setKeyword={handleKeyword} />
 
-          <CardList key={refreshKey} />
+          <div className="mt-10 mb-5 ">
+            <Ring content={"My Repos.."} />
+          </div>
+          <GithubProjects keyword={keyword} username={"ranjan-builds"} />
         </main>
         <Footer />
       </section>
-
-      {/* Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmitted={() => setRefreshKey((prev) => prev + 1)}
-      >
-        <h2 className="text-xl font-bold mb-4">Add New Project</h2>
-        <form className="flex flex-col gap-3">
-          <input
-            placeholder="Project Name"
-            className="p-2 rounded bg-slate-800 border border-gray-700 focus:outline-none"
-          />
-          <textarea
-            placeholder="Description"
-            className="p-2 rounded bg-slate-800 border border-gray-700 focus:outline-none"
-          />
-          <input
-            placeholder="Technologies (comma separated)"
-            className="p-2 rounded bg-slate-800 border border-gray-700 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 rounded p-2 mt-2"
-          >
-            Submit
-          </button>
-        </form>
-      </Modal>
     </>
   );
 }
